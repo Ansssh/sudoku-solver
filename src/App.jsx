@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from './components/Button'
 import Numbers from './components/InputNumbers'
 import Board from './components/Board';
+import ResetBoard from './components/ResetBoard'
 
 function App() {
     const emptyBoard = Array(9).fill(0).map(() => Array(9).fill(''));
@@ -28,6 +29,7 @@ function App() {
             {viewNumbers && <Numbers onNumberClick={handleNumberClick}/>}
             {viewNumbers ?
                 <div className='flex gap-3'>
+                    <ResetBoard emptyBoard={emptyBoard} setBoard={setBoard}></ResetBoard>
                     <Button text="Save" seal="ri-bookmark-fill" viewNumbers={viewNumbers} setviewNumbers={setviewNumbers} />
                 </div>
                 :

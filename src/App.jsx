@@ -9,6 +9,8 @@ function App() {
     const [board, setBoard] = useState(emptyBoard);
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
     const [viewNumbers, setviewNumbers] = useState(false);
+    const [highlightValue, setHighlightValue] = useState(null);
+
 
     const handleNumberClick = (num) => {
         const { row, col } = selectedCell;
@@ -60,6 +62,8 @@ function App() {
                 board={board}
                 setSelectedCell={setSelectedCell}
                 selectedCell={selectedCell}
+                highlightValue={highlightValue}
+                setHighlightValue={setHighlightValue}
             />
             {viewNumbers && <Numbers onNumberClick={handleNumberClick} />}
             {viewNumbers ?

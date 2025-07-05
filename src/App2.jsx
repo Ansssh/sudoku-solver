@@ -6,6 +6,18 @@ import ResetBoard from './components/ResetBoard';
 
 function App() {
     const emptyBoard = Array(9).fill(0).map(() => Array(9).fill(''));
+    // const tempBoard = [
+    //     ['', '', '', '', '5', '', '', '9', '4'],
+    //     ['8', '', '9', '', '', '', '', '', '5'],
+    //     ['', '7', '', '', '', '9', '8', '', '2'],
+    //     ['2', '', '', '1', '', '', '', '', ''],
+    //     ['', '4', '5', '', '', '', '6', '8', ''],
+    //     ['', '', '', '', '', '7', '', '', '9'],
+    //     ['9', '', '8', '2', '', '', '', '1', ''],
+    //     ['6', '', '', '', '', '', '2', '', '8'],
+    //     ['4', '5', '', '', '6', '', '', '', '']
+    // ]
+    // const [board, setBoard] = useState(tempBoard);
     const [board, setBoard] = useState(emptyBoard);
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
     const [viewNumbers, setviewNumbers] = useState(false);
@@ -229,6 +241,7 @@ function App() {
                     Solve Next
                 </button>
             )}
+            
         </div>
     );
 }

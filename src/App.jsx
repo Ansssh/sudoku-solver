@@ -9,6 +9,15 @@ function App() {
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
     const [viewNumbers, setviewNumbers] = useState(false);
 
+    const handleNumberClick = (num) => {
+        const { row, col } = selectedCell;
+        if (row !== null && col !== null) {
+            const newBoard = [...board];
+            newBoard[row][col] = num;
+            setBoard(newBoard);
+        }
+    };
+
     return (
         <div className='w-screen h-screen flex items-center justify-center gap-4 flex-col'>
             <Board
@@ -16,7 +25,7 @@ function App() {
                 setSelectedCell={setSelectedCell}
                 selectedCell={selectedCell}
             />
-            {viewNumbers && <Numbers/>}
+            {viewNumbers && <Numbers onNumberClick={handleNumberClick}/>}
             {viewNumbers ?
                 <div className='flex gap-3'>
                     <Button text="Save" seal="ri-bookmark-fill" viewNumbers={viewNumbers} setviewNumbers={setviewNumbers} />

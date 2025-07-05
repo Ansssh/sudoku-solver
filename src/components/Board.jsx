@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-
 export default function Board({ board, setSelectedCell, selectedCell, highlightValue, setHighlightValue }) {
     return (
         <div className="flex flex-col border-2">
@@ -84,34 +81,34 @@ function IRow({ row, colOffset, board, setSelectedCell, selectedCell, highlightV
 
 
 function Cell({ row, col, value, setSelectedCell, selectedCell, highlightValue, setHighlightValue }) {
-  const isSelected = selectedCell.row === row && selectedCell.col === col;
-  const isHighlighted = value !== '' && value === highlightValue;
+    const isSelected = selectedCell.row === row && selectedCell.col === col;
+    const isHighlighted = value !== '' && value === highlightValue;
 
-  const isInFocus =
-    selectedCell.row !== null &&
-    (
-      row === selectedCell.row ||
-      col === selectedCell.col ||
-      (Math.floor(row / 3) === Math.floor(selectedCell.row / 3) &&
-       Math.floor(col / 3) === Math.floor(selectedCell.col / 3))
-    );
+    const isInFocus =
+        selectedCell.row !== null &&
+        (
+            row === selectedCell.row ||
+            col === selectedCell.col ||
+            (Math.floor(row / 3) === Math.floor(selectedCell.row / 3) &&
+                Math.floor(col / 3) === Math.floor(selectedCell.col / 3))
+        );
 
-  const handleClick = () => {
-    setSelectedCell({ row, col });
-    setHighlightValue(value || null);
-  };
+    const handleClick = () => {
+        setSelectedCell({ row, col });
+        (value || null);
+    };setHighlightValue
 
-  return (
-    <div
-      onClick={handleClick}
-      className={`border w-12 h-12 flex items-center justify-center cursor-pointer font-bold
+    return (
+        <div
+            onClick={handleClick}
+            className={`border w-12 h-12 flex items-center justify-center cursor-pointer font-bold
         ${isSelected ? "bg-blue-300" : ""}
         ${isHighlighted ? "bg-yellow-200" : ""}
         ${!isSelected && isInFocus ? "bg-gray-200" : ""}
         ${!isSelected && !isHighlighted && !isInFocus ? "hover:bg-gray-50" : ""}`}
-    >
-      {value || ''}
-    </div>
-  );
+        >
+            {value || ''}
+        </div>
+    );
 }
 

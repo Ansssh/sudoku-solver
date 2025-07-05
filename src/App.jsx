@@ -13,15 +13,46 @@ function App() {
     const handleNumberClick = (num) => {
         const { row, col } = selectedCell;
         if (row !== null && col !== null) {
-            const newBoard = [...board];
-            newBoard[row][col] = num;
-            setBoard(newBoard);
+            const newBoard = board.map(r => [...r]); // deep copy
+            newBoard[row][col] = num || ''; // eraser passes `undefined`
+            if (isValidBoard(newBoard)) {
+                setBoard(newBoard);
+            } else {
+                alert("Invalid move! This breaks Sudoku rules.");
+            }
         }
     };
+
 
     const countFilledCells = () => {
         return board.flat().filter(cell => cell !== '').length;
     };
+
+    const isValidBoard = (brd) => {
+        const seen = new Set();
+
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                const val = brd[r][c];
+                if (val === '') continue;
+
+                const rowKey = `row-${r}-${val}`;
+                const colKey = `col-${c}-${val}`;
+                const boxKey = `box-${Math.floor(r / 3)}-${Math.floor(c / 3)}-${val}`;
+
+                if (seen.has(rowKey) || seen.has(colKey) || seen.has(boxKey)) {
+                    return false; // Invalid placement
+                }
+
+                seen.add(rowKey);
+                seen.add(colKey);
+                seen.add(boxKey);
+            }
+        }
+
+        return true;
+    };
+
 
     return (
         <div className='w-screen h-screen flex items-center justify-center gap-4 flex-col'>
@@ -30,7 +61,7 @@ function App() {
                 setSelectedCell={setSelectedCell}
                 selectedCell={selectedCell}
             />
-            {viewNumbers && <Numbers onNumberClick={handleNumberClick}/>}
+            {viewNumbers && <Numbers onNumberClick={handleNumberClick} />}
             {viewNumbers ?
                 <div className='flex gap-3'>
                     <ResetBoard emptyBoard={emptyBoard} setBoard={setBoard}></ResetBoard>
@@ -39,7 +70,7 @@ function App() {
                 :
                 <Button text="Edit" seal="ri-pencil-fill" viewNumbers={viewNumbers} setviewNumbers={setviewNumbers} />
             }
-            
+
             <button
                 disabled={countFilledCells() < 17}
                 onClick={() => console.log("Solve clicked")}

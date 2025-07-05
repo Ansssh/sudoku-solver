@@ -19,6 +19,10 @@ function App() {
         }
     };
 
+    const countFilledCells = () => {
+        return board.flat().filter(cell => cell !== '').length;
+    };
+
     return (
         <div className='w-screen h-screen flex items-center justify-center gap-4 flex-col'>
             <Board
@@ -35,7 +39,14 @@ function App() {
                 :
                 <Button text="Edit" seal="ri-pencil-fill" viewNumbers={viewNumbers} setviewNumbers={setviewNumbers} />
             }
-
+            
+            <button
+                disabled={countFilledCells() < 17}
+                onClick={() => console.log("Solve clicked")}
+                className={`flex items-center justify-center gap-1 w-30 h-10 font-bold rounded-full shadow-xl hover:ring ${countFilledCells() < 17 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-white"}`}
+            >
+                Solve
+            </button>
 
         </div>
     );
